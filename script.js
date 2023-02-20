@@ -30,9 +30,18 @@ function unSelectAll(){
     }
 }
 
-for(let i=0; i < lstLi.length; i += 1) {
-    lstLi[i].addEventListener('click',(event) =>{
-        unSelectAll();
-        event.target.classList.add('selected');
-    });
+function defineEvents(){
+    for(let i=0; i < lstLi.length; i += 1) {
+    
+        lstLi[i].addEventListener('dblclick',(event) =>{
+            event.target.classList.toggle('completed');
+        });
+        lstLi[i].addEventListener('click',(event) =>{
+            unSelectAll();
+            event.target.classList.add('selected');
+        });
+    }
 }
+defineEvents();
+
+
