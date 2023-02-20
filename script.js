@@ -23,14 +23,16 @@ let lstLi = lstTarefas.children;
 console.log(lstLi)
 console.log(novasLi)
 
-for(let i=0; i < lstLi.length; i += 1) {
-    lstLi[i].addEventListener('click',(event) =>{
-        event.target.classList.add('selected')
-    });
+function unSelectAll(){
+    let lista = document.querySelectorAll('#lista-tarefas li');
+    for (let i = 0; i < lista.length; i += 1){
+        lista[i].classList.remove('selected');   
+    }
 }
 
-//lstLi.forEach(() => {
-  //  alert('')
-//});
-
-
+for(let i=0; i < lstLi.length; i += 1) {
+    lstLi[i].addEventListener('click',(event) =>{
+        unSelectAll();
+        event.target.classList.add('selected');
+    });
+}
