@@ -18,5 +18,19 @@ novasLi.forEach((item,index)=>{
     lstTarefas.append(li)
 });
 
+console.log(lstTarefas.children)
+let lstLi = lstTarefas.children;
+console.log(lstLi)
+console.log(novasLi)
+
+for(let i=0; i < lstLi.length; i += 1) {
+    lstLi[i].addEventListener('click',(event) =>{
+        event.target.classList.add('selected')
+    });
+}
+
+//lstLi.forEach(() => {
+  //  alert('')
+//});
 
 
