@@ -71,9 +71,7 @@ btnApagarFinalizados.addEventListener('click',() =>{
     });
 });
 
-btnSalvar.addEventListener('click',salvar);
-
-function salvar(){
+btnSalvar.addEventListener('click', ()=>{
     let myArray = [];
     for (let i=0; i < lstTarefas.children.length; i += 1) {
         let newObject = {
@@ -81,6 +79,40 @@ function salvar(){
             classList: lstTarefas.children[i].classList.value
         }
         myArray.push(newObject);
+        console.info(myArray)
+    }
+    let stringJson = JSON.stringify(myArray);        
+    salvar(stringJson);
+
+});
+
+function salvar(stringJson){
+    
+    localStorage.setItem('tasks',stringJson);
+}
+
+function populaLista(objetos){
+    lstTarefas.innerHTML = '';
+
+    objetos.forEach(function(item,i){
+        let li = document.createElement('li');
+        li.innerText = item.innerText;
+        console.log(objetos)
+        console.log(item);
+        lstTarefas.append(li)
+       // alert('');
+    });
+}
+window.onload = () => {
+
+    let myArray = [];
+    for (let i=0; i < lstTarefas.children.length; i += 1) {
+        let newObject = {
+            innerText: lstTarefas.children[i].innerText,
+            classList: lstTarefas.children[i].classList.value
+        }
+        myArray.push(newObject);
+        console.info(myArray)
     }
 
     if(localStorage.getItem('tasks')) {
@@ -88,17 +120,9 @@ function salvar(){
         console.info('Este eh o tasks salvo: ', objectJson);
         populaLista(objectJson);
     } else {
-        let stringJson = JSON.stringify(myArray);
-        console.info('Não tinha tasks salvo, vou salvar JSON: ',stringJson);
-        localStorage.setItem('tasks',stringJson);
+        console.info('Não tinha tasks salvo: ');
+        populaLista(myArray);
+        let stringJson = JSON.stringify(myArray);        
+        salvar(stringJson);
     }
-}
-
-function populaLista(objetos){
-    objetos.forEach(function(element,i){
-        alert('');
-    });
-}
-window.onload = () => {
-    salvar();
 }
