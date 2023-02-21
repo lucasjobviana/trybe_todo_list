@@ -91,6 +91,9 @@ function populaLista(objetos){
     objetos.forEach(function(item,i){
         let li = document.createElement('li');
         li.innerText = item.innerText;
+        li.setAttribute('class',item.classList);
+        
+
         console.log(objetos)
         console.log(item);
         lstTarefas.append(li)
@@ -119,4 +122,10 @@ window.onload = () => {
         let stringJson = JSON.stringify(myArray);        
         salvar(stringJson);
     }
+
+    let li = document.createElement('link');
+    li.setAttribute('rel','stylesheet');
+    li.setAttribute('href','style.css')
+    
+    document.getElementsByTagName('body')[0].append(li);
 }
