@@ -1,7 +1,8 @@
 const iptNovaTarefa = document.getElementById('texto-tarefa');
 const btnCriarTarefa = document.getElementById('criar-tarefa');
 const lstTarefas = document.getElementById('lista-tarefas');
-const btnApagaTudo = document.getElementById('apaga-tudo');
+const btnApagarTudo = document.getElementById('apaga-tudo');
+const btnApagarFinalizados = document.getElementById('remover-finalizados');
 const novasLi = ['Fazer exercícios do bloco 4','Segunda tarefa','Anotar dicas de JS'];
 
 btnCriarTarefa.addEventListener('click', () => {
@@ -44,10 +45,13 @@ function defineEvents(){
     }
 }
 
-btnApagaTudo.addEventListener('click',() =>{
+btnApagarTudo.addEventListener('click',() =>{
     lstTarefas.innerHTML = '';
 });
-
+btnApagarFinalizados.addEventListener('click',() =>{
+    lstTarefas.remove();
+    
+});
 
 defineEvents();
 
