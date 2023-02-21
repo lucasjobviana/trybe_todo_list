@@ -5,6 +5,25 @@ const btnApagarTudo = document.getElementById('apaga-tudo');
 const btnApagarFinalizados = document.getElementById('remover-finalizados');
 const novasLi = ['Fazer exercícios do bloco 4','Segunda tarefa','Anotar dicas de JS'];
 const btnSalvar = document.getElementById('salvar-tarefas');
+const btnCima = document.getElementById('mover-cima');
+const btnBaixo = document.getElementById('mover-baixo');
+const btnMover = document.getElementById('mover');
+
+function redefinirLista(direcao,itemSelecionado) {
+    alert('vou redefinir lista '+direcao);
+}
+
+
+
+btnMover.addEventListener('click', (evt) => {
+    console.log(evt.target.innerText);
+    let direcao = 'nao definida';
+    switch(evt.target.innerText) {
+        case '⏫': direcao = 'up';break;
+        case '⏬': direcao = 'down';
+    }
+    redefinirLista(direcao,null);
+});
 
 btnCriarTarefa.addEventListener('click', () => {
     let novoElemento = document.createElement('li');
@@ -29,6 +48,8 @@ function unSelectAll(){
         lista[i].classList.remove('selected');   
     }
 }
+
+
 
 function defineEvents(){
     lstTarefas.addEventListener('click', (event) => {
