@@ -10,10 +10,34 @@ const btnBaixo = document.getElementById('mover-baixo');
 const btnMover = document.getElementById('mover');
 
 function redefinirLista(direcao,itemSelecionado) {
-    alert('vou redefinir lista '+direcao);
+    let novaLista = [...lstTarefas.children];
+    let i = itemSelecionado - 1;
+
+
+    if(itemSelecionado >= 0 && itemSelecionado < lstTarefas.children.length){
+        if(direcao == 'up') {
+            if( itemSelecionado-1 != -1) {
+                novaLista.splice(itemSelecionado-1,0,lstTarefas.children[itemSelecionado]);
+                novaLista.splice(itemSelecionado+1,1);
+                lstTarefas.children = novaLista;
+                populaLista(novaLista);
+            }
+        }else if(direcao == 'down') {
+            novaLista.splice(itemSelecionado+2,0,lstTarefas.children[itemSelecionado]);
+            novaLista.splice(itemSelecionado,1);
+            lstTarefas.children = novaLista;
+            populaLista(novaLista);
+        }
+    }
 }
 
-
+function getIndexOfSelectedItem() {
+    for (let i=0; i < lstTarefas.children.length; i += 1) {     
+        if( lstTarefas.children[i].classList.value.includes('selected') ){
+            return i;
+        }
+    }
+}
 
 btnMover.addEventListener('click', (evt) => {
     console.log(evt.target.innerText);
@@ -22,7 +46,7 @@ btnMover.addEventListener('click', (evt) => {
         case '⏫': direcao = 'up';break;
         case '⏬': direcao = 'down';
     }
-    redefinirLista(direcao,null);
+    redefinirLista(direcao,getIndexOfSelectedItem());
 });
 
 btnCriarTarefa.addEventListener('click', () => {
@@ -115,8 +139,8 @@ function populaLista(objetos){
         li.setAttribute('class',item.classList);
         
 
-        console.log(objetos)
-        console.log(item);
+       // console.log(objetos)
+        //console.log(item);
         lstTarefas.append(li)
        // alert('');
     });
@@ -130,15 +154,15 @@ window.onload = () => {
             classList: lstTarefas.children[i].classList.value
         }
         myArray.push(newObject);
-        console.info(myArray)
+        //console.info(myArray)
     }
 
     if(localStorage.getItem('tasks')) {
         let objectJson = JSON.parse(localStorage.getItem('tasks'));
-        console.info('Este eh o tasks salvo: ', objectJson);
+       // console.info('Este eh o tasks salvo: ', objectJson);
         populaLista(objectJson);
     } else {
-        console.info('Não tinha tasks salvo: ');
+       // console.info('Não tinha tasks salvo: ');
         populaLista(myArray);
         let stringJson = JSON.stringify(myArray);        
         salvar(stringJson);
