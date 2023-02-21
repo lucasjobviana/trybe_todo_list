@@ -8,6 +8,10 @@ const btnSalvar = document.getElementById('salvar-tarefas');
 const btnCima = document.getElementById('mover-cima');
 const btnBaixo = document.getElementById('mover-baixo');
 const btnMover = document.getElementById('mover');
+const btnLiberar = document.getElementById('liberar-selecionado');
+const btnRemover = document.getElementById('remover-selecionado');
+let selecionado = null;
+
 
 function redefinirLista(direcao,itemSelecionado) {
     let novaLista = [...lstTarefas.children];
@@ -20,12 +24,14 @@ function redefinirLista(direcao,itemSelecionado) {
                 novaLista.splice(itemSelecionado-1,0,lstTarefas.children[itemSelecionado]);
                 novaLista.splice(itemSelecionado+1,1);
                 lstTarefas.children = novaLista;
+                selecionado -= 1;
                 populaLista(novaLista);
             }
         }else if(direcao == 'down') {
             novaLista.splice(itemSelecionado+2,0,lstTarefas.children[itemSelecionado]);
             novaLista.splice(itemSelecionado,1);
             lstTarefas.children = novaLista;
+            selecionado += 1;
             populaLista(novaLista);
         }
     }
@@ -34,10 +40,20 @@ function redefinirLista(direcao,itemSelecionado) {
 function getIndexOfSelectedItem() {
     for (let i=0; i < lstTarefas.children.length; i += 1) {     
         if( lstTarefas.children[i].classList.value.includes('selected') ){
-            return i;
+            selecionado = i;
+            return i;         
         }
     }
 }
+
+btnRemover.addEventListener('click', (evt) => {
+    lstTarefas.children[selecionado].remove();
+    selecionado = null;
+});
+
+btnLiberar.addEventListener('click', (evt) => {
+    unSelectAll();
+});
 
 btnMover.addEventListener('click', (evt) => {
     console.log(evt.target.innerText);
@@ -69,6 +85,7 @@ let lstLi = lstTarefas.children;
 function unSelectAll(){
     let lista = document.querySelectorAll('#lista-tarefas li');
     for (let i = 0; i < lista.length; i += 1){
+        selecionado = null;
         lista[i].classList.remove('selected');   
     }
 }
@@ -79,6 +96,8 @@ function defineEvents(){
     lstTarefas.addEventListener('click', (event) => {
         unSelectAll();
         event.target.classList.add('selected');
+        selecionado = getIndexOfSelectedItem();
+        
     }); 
     lstTarefas.addEventListener('dblclick', (event) => {
         event.target.classList.toggle('completed');
@@ -137,12 +156,8 @@ function populaLista(objetos){
         let li = document.createElement('li');
         li.innerText = item.innerText;
         li.setAttribute('class',item.classList);
-        
-
-       // console.log(objetos)
-        //console.log(item);
-        lstTarefas.append(li)
-       // alert('');
+        lstTarefas.append(li);
+        selecionado = getIndexOfSelectedItem();
     });
 }
 window.onload = () => {
