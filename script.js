@@ -62,8 +62,10 @@ btnApagarFinalizados.addEventListener('click',() =>{
              }
         }  
     }
-
+    console.info('meu aarray de i ',indices)
+    let qtdRemovida = 0;
     indices.forEach((element,i) =>{
-         lstTarefas.children[i].remove();
+        console.info('vou retirar o ',i)
+         lstTarefas.children[element-qtdRemovida].remove();qtdRemovida +=1;
     });
 });
