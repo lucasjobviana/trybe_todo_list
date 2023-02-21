@@ -21,10 +21,7 @@ novasLi.forEach((item,index)=>{
     lstTarefas.append(li)
 });
 
-//console.log(lstTarefas.children)
 let lstLi = lstTarefas.children;
-//console.log(lstLi)
-//console.log(novasLi)
 
 function unSelectAll(){
     let lista = document.querySelectorAll('#lista-tarefas li');
@@ -34,16 +31,13 @@ function unSelectAll(){
 }
 
 function defineEvents(){
-    for(let i=0; i < lstLi.length; i += 1) {
-
-        lstLi[i].addEventListener('dblclick',(event) =>{
-            event.target.classList.toggle('completed');
-        });
-        lstLi[i].addEventListener('click',(event) =>{
-            unSelectAll();
-            event.target.classList.add('selected');
-        });
-    }
+    lstTarefas.addEventListener('click', (event) => {
+        unSelectAll();
+        event.target.classList.add('selected');
+    }); 
+    lstTarefas.addEventListener('dblclick', (event) => {
+        event.target.classList.toggle('completed');
+    });
 }
 defineEvents();
 
