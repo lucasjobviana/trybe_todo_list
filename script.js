@@ -4,6 +4,7 @@ const lstTarefas = document.getElementById('lista-tarefas');
 const btnApagarTudo = document.getElementById('apaga-tudo');
 const btnApagarFinalizados = document.getElementById('remover-finalizados');
 const novasLi = ['Fazer exercícios do bloco 4','Segunda tarefa','Anotar dicas de JS'];
+const btnSalvar = document.getElementById('salvar-tarefas');
 
 btnCriarTarefa.addEventListener('click', () => {
     let novoElemento = document.createElement('li');
@@ -20,10 +21,10 @@ novasLi.forEach((item,index)=>{
     lstTarefas.append(li)
 });
 
-console.log(lstTarefas.children)
+//console.log(lstTarefas.children)
 let lstLi = lstTarefas.children;
-console.log(lstLi)
-console.log(novasLi)
+//console.log(lstLi)
+//console.log(novasLi)
 
 function unSelectAll(){
     let lista = document.querySelectorAll('#lista-tarefas li');
@@ -62,10 +63,42 @@ btnApagarFinalizados.addEventListener('click',() =>{
              }
         }  
     }
-    console.info('meu aarray de i ',indices)
+   // console.info('meu aarray de i ',indices)
     let qtdRemovida = 0;
     indices.forEach((element,i) =>{
-        console.info('vou retirar o ',i)
+       // console.info('vou retirar o ',i)
          lstTarefas.children[element-qtdRemovida].remove();qtdRemovida +=1;
     });
 });
+
+btnSalvar.addEventListener('click',salvar);
+
+function salvar(){
+    let myArray = [];
+    for (let i=0; i < lstTarefas.children.length; i += 1) {
+        let newObject = {
+            innerText: lstTarefas.children[i].innerText,
+            classList: lstTarefas.children[i].classList.value
+        }
+        myArray.push(newObject);
+    }
+
+    if(localStorage.getItem('tasks')) {
+        let objectJson = JSON.parse(localStorage.getItem('tasks'));
+        console.info('Este eh o tasks salvo: ', objectJson);
+        populaLista(objectJson);
+    } else {
+        let stringJson = JSON.stringify(myArray);
+        console.info('Não tinha tasks salvo, vou salvar JSON: ',stringJson);
+        localStorage.setItem('tasks',stringJson);
+    }
+}
+
+function populaLista(objetos){
+    objetos.forEach(function(element,i){
+        alert('');
+    });
+}
+window.onload = () => {
+    salvar();
+}
