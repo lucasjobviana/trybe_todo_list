@@ -44,15 +44,26 @@ function defineEvents(){
         });
     }
 }
+defineEvents();
+
 
 btnApagarTudo.addEventListener('click',() =>{
     lstTarefas.innerHTML = '';
 });
+
 btnApagarFinalizados.addEventListener('click',() =>{
-    lstTarefas.remove();
-    
+    let tamanho = lstTarefas.childElementCount;
+    let indices = [];
+
+    for (let i=0; i < tamanho; i +=1) {        
+        if (lstTarefas.children[i].classList.value != '') {
+            if(lstTarefas.children[i].classList.value.includes('completed') ) {
+                indices.push(i); 
+             }
+        }  
+    }
+
+    indices.forEach((element,i) =>{
+         lstTarefas.children[i].remove();
+    });
 });
-
-defineEvents();
-
-
