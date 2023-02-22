@@ -3,7 +3,8 @@ const btnCriarTarefa = document.getElementById('criar-tarefa');
 const lstTarefas = document.getElementById('lista-tarefas');
 const btnApagarTudo = document.getElementById('apaga-tudo');
 const btnApagarFinalizados = document.getElementById('remover-finalizados');
-const novasLi = ['Fazer exercícios do bloco 4','Segunda tarefa','Anotar dicas de JS'];
+let novasLi = ['Fazer exercícios do bloco 4','Segunda tarefa','Anotar dicas de JS'];
+novasLi = [];
 const btnSalvar = document.getElementById('salvar-tarefas');
 const btnCima = document.getElementById('mover-cima');
 const btnBaixo = document.getElementById('mover-baixo');
@@ -156,7 +157,7 @@ function populaLista(objetos){
         let li = document.createElement('li');
         li.innerText = item.innerText;
         li.setAttribute('class',item.classList);
-        lstTarefas.append(li);
+        lstTarefas.apend(li);
         selecionado = getIndexOfSelectedItem();
     });
 }
@@ -183,9 +184,9 @@ window.onload = () => {
         salvar(stringJson);
     }
 
-    let li = document.createElement('link');
-    li.setAttribute('rel','stylesheet');
-    li.setAttribute('href','style.css')
+    let link = document.createElement('link');
+    link.setAttribute('rel','stylesheet');
+    link.setAttribute('href','style.css')
     
-    document.getElementsByTagName('body')[0].append(li);
+    document.getElementsByTagName('body')[0].append(link);
 }
